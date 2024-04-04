@@ -1,0 +1,75 @@
+'''
+4/04/2024
+elaborar un programa ern phython que capture la siguiente la siguiente información de un estudiante:
+codigo
+nombres
+apellidos
+contactos
+correo
+edad
+estrato
+sexo
+dirección
+
+solo se reguistra los estudiantes que cumplan los siguientes criterios:
+1. sexo masculino edad 15-25 y estrato 1-2
+2. sexo femenino edad 20-35  y estrato 1-4
+3. en caso de no aplicar, guardar su contacto en una lista llamada pendiente
+'''
+
+the_diccionario = {}
+pendiente_lista = []
+import os
+def fnt_limpiar ():
+    os.system('cls')
+    print(f'\nbienvenidos al sistema de clasificación de  información de estudiantes \nAutor: Jose Daniel Nuñez \nIstitución: FUNLAM \n{the_diccionario}\n{pendiente_lista}')
+    
+
+def fnt_agregar(the_diccionario, id_persona, nombre, apellidos, contactos, correo, edad, estrato, sexo, direccion):
+    if id_persona == '' or nombre == '' or apellidos == '' or contactos == '' or correo == '' or edad ==  '' or estrato == '' or sexo == '' or direccion == '':
+        enter = input('Debe diligenciar toda la información solicitada <ENTER>')
+    else:
+        edad = int(edad)
+        estrato = int(estrato)
+        if sexo == 'M' and (edad >=15 and edad <=25) and  (estrato >=1 and estrato <=2) :
+            the_diccionario[id_persona] = {'nombres': nombre,'apellidos': apellidos,'contacto': contactos,'correo': correo, 'edad': edad, 'estrato': estrato,'sexo': sexo,'dirección': direccion} 
+            enter = input(f'\nLa persona {nombre} ha sido registrada con éxito <ENTER>')    
+        elif sexo  == 'F' and (edad >=20 and edad <=35) and  (estrato >=1 and estrato <=4) : 
+            the_diccionario[id_persona] = {'nombres': nombre,'apellidos': apellidos,'contacto': contactos,'correo': correo, 'edad': edad, 'estrato': estrato,'sexo': sexo,'dirección': direccion} 
+            enter = input(f'\nLa persona {nombre} ha sido registrada con éxito <ENTER>')   
+        else:
+            pendiente_lista.append(contactos) 
+            enter = input(f'\ndebido a que no cumples con los requerimientos ha sido registrada  en la lista de espera con exito <ENTER>')
+            
+                 
+             
+def fnt_selector(op):
+    global the_diccionario
+    global sw
+    if op == '1':
+        fnt_limpiar ()
+        id_persona = input('id: ')
+        nombre = input('Nombre: ')
+        apellidos = input('apellidos: ')
+        contactos = input('numero de contacto: ')
+        correo = input('correo: ')
+        edad = input('Edad: ')
+        estrato = input('estrato: ')
+        sexo = input('MASCULINO(M) O FEMENINO(F): ').upper()
+        direccion = input('dirección: ')
+        fnt_agregar(the_diccionario, id_persona, nombre, apellidos, contactos, correo, edad, estrato, sexo, direccion)  
+    if op == '2':
+        print('cantidad de registrados: ', len(the_diccionario))
+        print(the_diccionario)
+        print('cantidad de pendientes: ', len(pendiente_lista))
+        print(the_diccionario)
+        enter = input( ' para continuar <ENTER>')  
+    if op == '3':
+        sw = False
+
+        
+sw = True    
+while sw == True:
+    fnt_limpiar()
+    opciones = input('\n\n<<<<<<<<<MENU PRINCIPAL>>>>>>>>>>\n\n1.Registrar \n2.mostrar \n3.Salir \n->')
+    fnt_selector(opciones)
